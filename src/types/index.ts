@@ -14,3 +14,29 @@ export interface IUser {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface IWallet {
+  _id?: any;
+  user: any;
+  balance: number;
+  escrowHold: number;
+  currency: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export type TransactionType = 'DEPOSIT' | 'WITHDRAW' | 'ESCROW_LOCK' | 'ESCROW_RELEASE' | 'ESCROW_REFUND';
+export type TransactionStatus = 'PENDING' | 'COMPLETED' | 'FAILED';
+
+export interface ITransaction {
+  _id?: any;
+  sender?: any;
+  receiver?: any;
+  type: TransactionType;
+  amount: number;
+  status: TransactionStatus;
+  referenceId?: string;
+  description?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}

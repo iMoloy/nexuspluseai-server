@@ -5,6 +5,7 @@ import walletRoutes from './wallet.routes';
 import assetRoutes from './asset.routes';
 import rentalRoutes from './rental.routes';
 import gigTaskRoutes from './gigTask.routes';
+import aiRoutes from './ai.routes';
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use('/wallet', walletRoutes);
 router.use('/assets', assetRoutes);
 router.use('/rentals', rentalRoutes);
 router.use('/gigs', gigTaskRoutes);
+router.use('/ai', aiRoutes);
 
 export default router;

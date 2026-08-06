@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import healthRoutes from './health.routes';
+import authRoutes from './auth.routes';
 
 const router = Router();
 
-// Section 1 Core Routes
 router.use('/', healthRoutes);
+router.use('/auth', authRoutes);
 
 export default router;

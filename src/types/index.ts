@@ -74,3 +74,34 @@ export interface IRentalBooking {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export type GigStatus = 'OPEN' | 'IN_PROGRESS' | 'UNDER_REVIEW' | 'COMPLETED' | 'CANCELLED';
+
+export interface IGigTask {
+  _id?: any;
+  client: any;
+  title: string;
+  description: string;
+  category: string;
+  budget: number;
+  deadline: Date;
+  status: GigStatus;
+  assignedFreelancer?: any;
+  escrowReferenceId?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export type ProposalStatus = 'PENDING' | 'ACCEPTED' | 'REJECTED';
+
+export interface IProposal {
+  _id?: any;
+  gigTask: any;
+  freelancer: any;
+  coverLetter: string;
+  proposedRate: number;
+  status: ProposalStatus;
+  proofSubmission?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}

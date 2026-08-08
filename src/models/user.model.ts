@@ -12,6 +12,8 @@ export interface IUserDocument extends Document {
   skills?: string[];
   kycVerified?: boolean;
   refreshToken?: string;
+  googleId?: string;
+  authProvider?: 'local' | 'google';
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
@@ -30,9 +32,18 @@ const userSchema = new Schema<IUserDocument>({
   },
   password: {
     type: String,
-    required: [true, 'Password is required'],
     minlength: 6,
     select: false
+  },
+  googleId: {
+    type: String,
+    sparse: true,
+    unique: true
+  },
+  authProvider: {
+    type: String,
+    enum: ['local', 'google'],
+    default: 'local'
   },
   role: {
     type: String,

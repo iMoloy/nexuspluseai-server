@@ -21,13 +21,14 @@ export const getBalance = async (req: AuthRequest, res: Response, next: NextFunc
 
 export const deposit = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { amount } = req.body;
+    const { amount, paymentMethod } = req.body;
     if (!amount || Number(amount) <= 0) {
       res.status(400).json({ success: false, message: 'Valid deposit amount required' });
       return;
     }
 
-    const { wallet, transaction } = await walletService.depositFunds(req.user._id, Number(amount));
+    const methodLabel = paymentMethod ? `${paymentMethod} Deposit` : 'Wallet Deposit';
+    const { wallet, transaction } = await walletService.depositFunds(req.user._id, Number(amount), methodLabel);
 
     res.status(200).json({
       success: true,

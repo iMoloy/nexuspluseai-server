@@ -1,108 +1,91 @@
-# NexusPulse AI - High Performance Express TypeScript Backend 🛡️⚡
+# NexusPulse AI — High Performance Express TypeScript Backend 🛡️⚡
+
+[![Render Deployment](https://img.shields.io/badge/Render-Live_Production-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://nexuspluseai-server.onrender.com/api/v1/health)
+[![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Gemini AI](https://img.shields.io/badge/Google_Gemini-8E75B2?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 The core RESTful API engine powering **NexusPulse AI** — an AI-Driven Freelance Gigs, Asset Rentals & Escrow Financial Super-App Ecosystem.
 
----
-
-## 🚀 Tech Stack & System Architecture
-
-- **Runtime & Language:** Node.js (v18+ / v20+), Express.js, TypeScript
-- **Database:** MongoDB (Mongoose ORM)
-- **Caching & In-Memory Store:** Redis (with automatic graceful fallback if offline)
-- **Authentication:** Better Auth / JWT Session Authentication (`CLIENT`, `FREELANCER`, `ASSET_OWNER`, `ADMIN`)
-- **FinTech Escrow Engine:** Atomic Wallet Ledger, Escrow Funds Locking, Release Payments, and Refund Handling
-- **Smart Asset & Vehicle Rental Engine:** Asset CRUD, Availability Filters, Date Range Calculations & Automatic Security Deposit Escrow Holds
-- **Micro-Tasking & Kanban Workflow Engine:** Gig Task Creation, Proposal Submissions, Freelancer Selection, Work Verification & Milestone Payment Approvals
-- **AI Integration:** Google Generative AI (`@google/generative-ai`) Gemini SDK for Task Generation, Candidate Matchmaking, and AI Dispute Mediation
-- **Real-Time Event Streaming:** Express Server-Sent Events (SSE) Stream (`/api/v1/events/stream`)
+📡 **Live API Base URL:** [https://nexuspluseai-server.onrender.com/api/v1](https://nexuspluseai-server.onrender.com/api/v1)  
+🌐 **Live Frontend Client:** [https://nexuspulseai-client.vercel.app](https://nexuspulseai-client.vercel.app)
 
 ---
 
-## 🛠️ Environment Configuration & Installation
+## ⚡ Key Modules & Features
 
-### 1. Clone Repository & Install Dependencies
-```bash
-git clone https://github.com/iMoloy/nexuspluseai-server.git
-cd nexuspluseai-server
-npm install
-```
+- **🛡️ Atomic Escrow & Wallet Ledger**: Funds locking, deposit handling, release approvals, and security deposit returns.
+- **🤖 Gemini AI Integration**: Automated task spec generation, candidate matchmaking, and dispute mediation.
+- **🚗 Asset Rental Management**: Daily rate calculations, security deposit holds, and vehicle/equipment availability.
+- **📋 Micro-Tasking Kanban Engine**: Task creation, proposal submissions, freelancer selection, work proof submission & payment release.
+- **🔐 Google OAuth Sync & JWT Security**: Google OAuth user account synchronization & JWT authorization middleware.
+- **📡 Server-Sent Events (SSE)**: Real-time event streaming (`/api/v1/events/stream`) for live notifications.
 
-### 2. Configure Environment Variables
-Copy `.env.example` to create your local `.env` configuration file:
-```bash
-cp .env.example .env
-```
+---
 
-Edit `.env` with your preferred database URIs and API credentials:
+## 🛠️ Tech Stack
+
+- **Runtime & Framework:** Node.js (v18+ / v20+), Express.js, TypeScript (`tsc`)
+- **Database & Modeling:** MongoDB, Mongoose ORM
+- **Cache & In-Memory Data:** Redis (`ioredis` with graceful offline fallback)
+- **Security & Utilities:** Cors, Helmet, JsonWebToken, BcryptJS, Morgan
+
+---
+
+## 🚀 Environment Configuration
+
+Create a `.env` file in the root directory:
+
 ```env
 PORT=5000
-NODE_ENV=development
-MONGODB_URI=mongodb://127.0.0.1:27017/nexuspulse_db
+NODE_ENV=production
+MONGODB_URI=mongodb+srv://your_live_mongodb_atlas_uri
 REDIS_URL=redis://127.0.0.1:6379
 JWT_SECRET=your_super_secret_jwt_key_here
 JWT_REFRESH_SECRET=your_super_secret_refresh_key_here
-CORS_ORIGIN=http://localhost:3000
+CORS_ORIGIN=https://nexuspulseai-client.vercel.app
 GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-### 3. Run Development Server
-```bash
-npm run dev
-```
-The backend API server will start at `http://localhost:5000`.
+---
 
-### 4. Build for Production
-```bash
-npm run build
-npm start
-```
+## 🔧 Local Setup & Build
 
-### 5. Automated Tests
-```bash
-npm test
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/iMoloy/nexuspluseai-server.git
+   cd nexuspluseai-server
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Development Mode:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Production Build & Verification:**
+   ```bash
+   npx tsc --noEmit
+   npm run build
+   npm start
+   ```
 
 ---
 
-## 📡 API Endpoint Reference
+## ☁️ Deploy to Render / Cloud Hosts
 
-### 🏥 Health & System Status
-- `GET /api/v1/health` — Service health check & MongoDB/Redis diagnostics.
-
-### 🔐 Authentication & Access Control
-- `POST /api/v1/auth/register` — Create new user account (`CLIENT`, `FREELANCER`, `ASSET_OWNER`).
-- `POST /api/v1/auth/login` — User authentication & JWT cookie generation.
-- `POST /api/v1/auth/refresh` — Refresh authentication tokens.
-
-### 💳 Escrow Digital Wallet & Financial Ledger
-- `GET /api/v1/wallet/balance` — Get user's available balance and escrow hold amount.
-- `POST /api/v1/wallet/deposit` — Simulate Stripe / SSLCommerz gateway deposit.
-- `GET /api/v1/wallet/transactions` — Fetch financial ledger transactions history.
-
-### 🚗 Smart Asset & Vehicle Rental Engine
-- `GET /api/v1/assets` — Search and filter rental assets (by category, location, date range).
-- `POST /api/v1/assets` — List a new car, equipment, or workspace for rental.
-- `POST /api/v1/rentals/book` — Rent asset and lock security deposit in Escrow.
-- `PATCH /api/v1/rentals/:id/complete` — Complete rental, release payment & refund security deposit.
-
-### 💼 Micro-Tasking Gigs & Kanban Workflow Engine
-- `GET /api/v1/gigs` — Browse available micro-gigs.
-- `POST /api/v1/gigs` — Post gig task & lock budget in Escrow.
-- `POST /api/v1/gigs/:id/apply` — Submit proposal for a gig.
-- `PATCH /api/v1/gigs/:id/assign` — Assign freelancer (Status -> `IN_PROGRESS`).
-- `POST /api/v1/gigs/:id/submit` — Submit work proof (Status -> `UNDER_REVIEW`).
-- `PATCH /api/v1/gigs/:id/approve` — Approve work & release Escrow payment to freelancer (Status -> `COMPLETED`).
-
-### 🤖 Gemini AI & Smart Matchmaker
-- `POST /api/v1/ai/generate-task` — Auto-generate structured gig spec, skills & budget recommendation.
-- `POST /api/v1/ai/match` — Rank freelancers and rental assets based on compatibility score.
-- `POST /api/v1/ai/resolve-dispute` — Run AI Dispute Mediator Agent settlement analysis.
-
-### 📡 Real-Time SSE Stream
-- `GET /api/v1/events/stream` — Connect to Server-Sent Events (SSE) stream for live notifications.
+- **Build Command:** `npm install && npm run build`
+- **Start Command:** `node dist/server.js`
 
 ---
 
-## 🛡️ License & Credits
+## 👤 Author & Credits
 
-Built with ❤️ by [iMoloy](https://github.com/iMoloy) for NexusPulse AI.
+Developed with ❤️ by [iMoloy (Moloy Paul)](https://github.com/iMoloy).  
+Copyright © 2026 NexusPulse AI. All Rights Reserved.

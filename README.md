@@ -1,36 +1,52 @@
-# NexusPulse AI — High Performance Express TypeScript Backend 🛡️⚡
+<div align="center">
+  <h1>🛡️ NexusPulse AI — Server API</h1>
+  <p>High Performance Express TypeScript & MongoDB Backend Engine</p>
+  <p>
+    <a href="https://nexuspluseai-server.onrender.com/api/v1/health"><img src="https://img.shields.io/badge/Render-Live_Production-46E3B7?style=for-the-badge&logo=render&logoColor=white" /></a>
+    <img src="https://img.shields.io/badge/Express.js-v4-000000?style=for-the-badge&logo=express&logoColor=white" />
+    <img src="https://img.shields.io/badge/Node.js-v20-339933?style=for-the-badge&logo=node.js&logoColor=white" />
+    <img src="https://img.shields.io/badge/TypeScript-v5-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+    <img src="https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white" />
+    <img src="https://img.shields.io/badge/Gemini_AI-v1.5-8E75B2?style=for-the-badge&logo=google&logoColor=white" />
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" />
+  </p>
+</div>
 
-[![Render Deployment](https://img.shields.io/badge/Render-Live_Production-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://nexuspluseai-server.onrender.com/api/v1/health)
-[![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
-[![Gemini AI](https://img.shields.io/badge/Google_Gemini-8E75B2?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+---
+
+## 📖 Overview
 
 The core RESTful API engine powering **NexusPulse AI** — an AI-Driven Freelance Gigs, Asset Rentals & Escrow Financial Super-App Ecosystem.
 
-📡 **Live API Base URL:** [https://nexuspluseai-server.onrender.com/api/v1](https://nexuspluseai-server.onrender.com/api/v1)  
-🌐 **Live Frontend Client:** [https://nexuspulseai-client.vercel.app](https://nexuspulseai-client.vercel.app)
+- 📡 **Live Base API:** [https://nexuspluseai-server.onrender.com/api/v1](https://nexuspluseai-server.onrender.com/api/v1)
+- 🌐 **Live Frontend Client:** [https://nexuspulseai-client.vercel.app](https://nexuspulseai-client.vercel.app)
+- 💻 **Client Repository:** [`nexuspulseai-client`](https://github.com/iMoloy/nexuspluseai-client)
 
 ---
 
-## ⚡ Key Modules & Features
+## ⚡ Key API Modules & Routes
 
-- **🛡️ Atomic Escrow & Wallet Ledger**: Funds locking, deposit handling, release approvals, and security deposit returns.
-- **🤖 Gemini AI Integration**: Automated task spec generation, candidate matchmaking, and dispute mediation.
-- **🚗 Asset Rental Management**: Daily rate calculations, security deposit holds, and vehicle/equipment availability.
-- **📋 Micro-Tasking Kanban Engine**: Task creation, proposal submissions, freelancer selection, work proof submission & payment release.
-- **🔐 Google OAuth Sync & JWT Security**: Google OAuth user account synchronization & JWT authorization middleware.
-- **📡 Server-Sent Events (SSE)**: Real-time event streaming (`/api/v1/events/stream`) for live notifications.
+| Module | Route Prefix | Key Functionalities |
+|--------|--------------|---------------------|
+| 🔐 **Auth Module** | `/api/v1/auth` | JWT Register, Login, Google OAuth sync, Me profile endpoint |
+| 🤖 **AI Engine** | `/api/v1/ai` | Gemini Task Spec generation & Gemini Dispute Settlement mediation |
+| 🏎️ **Asset Rentals**| `/api/v1/assets` | Asset listing CRUD, daily rate calculation, deposit verification |
+| 📋 **Gig Kanban** | `/api/v1/gigs` | Task creation, milestone escrow lock, proposal submission, status workflow |
+| 💳 **Escrow Wallet** | `/api/v1/wallet` | Escrow balance tracking, deposit holds, fund releases, multi-channel payouts |
+| 📡 **Realtime SSE** | `/api/v1/events/stream` | Server-Sent Events stream for live status updates & notifications |
+| 🩺 **Health Check** | `/api/v1/health` | Uptime check, database status & API ping |
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack & Architecture
 
-- **Runtime & Framework:** Node.js (v18+ / v20+), Express.js, TypeScript (`tsc`)
-- **Database & Modeling:** MongoDB, Mongoose ORM
-- **Cache & In-Memory Data:** Redis (`ioredis` with graceful offline fallback)
-- **Security & Utilities:** Cors, Helmet, JsonWebToken, BcryptJS, Morgan
+| Layer | Technology |
+|-------|-----------|
+| **Runtime & Framework** | Node.js (v18 / v20+), Express.js, TypeScript |
+| **Database & ODM** | MongoDB Atlas, Mongoose ORM |
+| **Cache & In-Memory** | Redis (`ioredis` with graceful offline fallback) |
+| **AI Integration** | Google Gemini API (`@google/generative-ai`) |
+| **Security & Middleware** | JWT (`jsonwebtoken`), BcryptJS, CORS, Helmet, Morgan logger |
 
 ---
 
@@ -51,41 +67,26 @@ GEMINI_API_KEY=your_gemini_api_key_here
 
 ---
 
-## 🔧 Local Setup & Build
+## 📜 Available Scripts
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/iMoloy/nexuspluseai-server.git
-   cd nexuspluseai-server
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Development Mode:**
-   ```bash
-   npm run dev
-   ```
-
-4. **Production Build & Verification:**
-   ```bash
-   npx tsc --noEmit
-   npm run build
-   npm start
-   ```
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server with ts-node-dev |
+| `npm run build` | Compile TypeScript into `/dist` directory |
+| `npm start` | Start production Node.js server (`dist/server.js`) |
+| `npx tsc --noEmit` | Verify TypeScript compilation with zero errors |
 
 ---
 
-## ☁️ Deploy to Render / Cloud Hosts
+## ☁️ Deployment Instructions (Render / Cloud)
 
 - **Build Command:** `npm install && npm run build`
 - **Start Command:** `node dist/server.js`
+- **Environment:** Node 20.x
 
 ---
 
-## 👤 Author & Credits
+## 👤 Author & License
 
-Developed with ❤️ by [iMoloy (Moloy Paul)](https://github.com/iMoloy).  
-Copyright © 2026 NexusPulse AI. All Rights Reserved.
+Developed with ❤️ by **[Moloy Paul (iMoloy)](https://github.com/iMoloy)**.  
+Released under the **MIT License**. Copyright © 2026 NexusPulse AI.

@@ -110,3 +110,27 @@ export const refundEscrow = async (clientId: string | any, amount: number, refer
 
   return { clientWallet, transaction };
 };
+
+// Instant Payout (Withdraw Funds)
+export const withdrawFunds = async (userId: string | any, amount: number, method: string = 'Bank Transfer', description = 'Wallet Withdrawal') => {
+  if (amount <= 0) throw new Error('Withdrawal amount must be positive');
+
+  const wallet = await getOrCreateWallet(userId);
+
+  if (wallet.balance < amount) {
+    throw new Error('Insufficient wallet balance for withdrawal');
+  }
+
+  wallet.balance -= amount;
+  await wallet.save();
+
+  const transaction = await Transaction.create({
+    sender: userId,
+    type: 'INSTANT_PAYOUT',
+    amount,
+    status: 'COMPLETED',
+    description: `${description} via ${method}`
+  });
+
+  return { wallet, transaction };
+};

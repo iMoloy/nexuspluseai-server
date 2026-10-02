@@ -246,3 +246,34 @@ export const googleSync = async (req: Request, res: Response, next: NextFunction
     next(error);
   }
 };
+
+export const updateDriverStatus = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { driverMode, isOnline } = req.body;
+
+    if (!req.user) {
+      res.status(401).json({ success: false, message: 'Unauthorized' });
+      return;
+    }
+
+    if (driverMode !== undefined) {
+      req.user.driverMode = driverMode;
+    }
+    if (isOnline !== undefined) {
+      req.user.isOnline = isOnline;
+    }
+
+    await req.user.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Driver status updated successfully',
+      data: {
+        driverMode: req.user.driverMode,
+        isOnline: req.user.isOnline
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};

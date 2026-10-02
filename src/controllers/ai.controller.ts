@@ -64,3 +64,71 @@ export const resolveDispute = async (req: AuthRequest, res: Response, next: Next
     next(error);
   }
 };
+
+export const verifyDelivery = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { taskRequirements, imageBase64 } = req.body;
+
+    if (!taskRequirements) {
+      res.status(400).json({ success: false, message: 'Task requirements needed for verification' });
+      return;
+    }
+
+    const verificationResult = await aiService.verifyProofOfDelivery(taskRequirements, imageBase64);
+
+    res.status(200).json({
+      success: true,
+      message: 'AI proof-of-delivery verification complete',
+      data: verificationResult
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const calculateFare = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { pickup, dropoff, category, vehicleType } = req.body;
+
+    if (!pickup || !dropoff) {
+      res.status(400).json({ success: false, message: 'Pickup and dropoff locations are required' });
+      return;
+    }
+
+    const fareResult = await aiService.calculateDynamicFare(
+      pickup,
+      dropoff,
+      category || 'Ride',
+      vehicleType || 'Car'
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'AI dynamic fare calculated',
+      data: fareResult
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const matchRoute = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { pickup, dropoff } = req.body;
+
+    if (!pickup || !dropoff) {
+      res.status(400).json({ success: false, message: 'Current route pickup and dropoff required' });
+      return;
+    }
+
+    const matchedAddon = await aiService.findOptimizedRouteAddons({ pickup, dropoff });
+
+    res.status(200).json({
+      success: true,
+      message: 'AI optimal route addon matched',
+      data: matchedAddon
+    });
+  } catch (error) {
+    next(error);
+  }
+};

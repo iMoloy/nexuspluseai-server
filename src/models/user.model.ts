@@ -11,6 +11,8 @@ export interface IUserDocument extends Document {
   bio?: string;
   skills?: string[];
   kycVerified?: boolean;
+  driverMode?: 'RIDE' | 'GIG';
+  isOnline?: boolean;
   refreshToken?: string;
   googleId?: string;
   authProvider?: 'local' | 'google';
@@ -62,6 +64,15 @@ const userSchema = new Schema<IUserDocument>({
     type: String
   }],
   kycVerified: {
+    type: Boolean,
+    default: false
+  },
+  driverMode: {
+    type: String,
+    enum: ['RIDE', 'GIG'],
+    default: 'RIDE'
+  },
+  isOnline: {
     type: Boolean,
     default: false
   },

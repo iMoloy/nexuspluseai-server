@@ -44,6 +44,34 @@ export const deposit = async (req: AuthRequest, res: Response, next: NextFunctio
   }
 };
 
+export const withdraw = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { amount, paymentMethod } = req.body;
+    if (!amount || Number(amount) <= 0) {
+      res.status(400).json({ success: false, message: 'Valid withdrawal amount required' });
+      return;
+    }
+
+    const { wallet, transaction } = await walletService.withdrawFunds(req.user._id, Number(amount), paymentMethod);
+
+    res.status(200).json({
+      success: true,
+      message: 'Funds withdrawn successfully',
+      data: {
+        balance: wallet.balance,
+        escrowHold: wallet.escrowHold,
+        transaction
+      }
+    });
+  } catch (error: any) {
+    if (error.message.includes('Insufficient')) {
+      res.status(400).json({ success: false, message: error.message });
+      return;
+    }
+    next(error);
+  }
+};
+
 export const getTransactions = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
   try {
     const transactions = await Transaction.find({

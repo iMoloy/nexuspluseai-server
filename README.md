@@ -7,6 +7,7 @@
     <img src="https://img.shields.io/badge/Node.js-v20-339933?style=for-the-badge&logo=node.js&logoColor=white" />
     <img src="https://img.shields.io/badge/TypeScript-v5-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
     <img src="https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white" />
+    <img src="https://img.shields.io/badge/Socket.io-v4-010101?style=for-the-badge&logo=socket.io&logoColor=white" />
     <img src="https://img.shields.io/badge/Gemini_AI-v1.5-8E75B2?style=for-the-badge&logo=google&logoColor=white" />
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" />
   </p>
@@ -28,12 +29,12 @@ The core RESTful API engine powering **NexusPulse AI** — an AI-Driven Freelanc
 
 | Module | Route Prefix | Key Functionalities |
 |--------|--------------|---------------------|
-| 🔐 **Auth Module** | `/api/v1/auth` | JWT Register, Login, Google OAuth sync, Me profile endpoint |
-| 🤖 **AI Engine** | `/api/v1/ai` | Gemini Task Spec generation & Gemini Dispute Settlement mediation |
+| 🔐 **Auth Module** | `/api/v1/auth` | JWT Register, Login, Google OAuth sync, Driver Mode/Status Switcher (`/driver/status`) |
+| 🤖 **AI Engine** | `/api/v1/ai` | Gemini Task Spec, Dispute Settlement, Route Addon Matcher, Proof-of-Delivery Verification |
 | 🏎️ **Asset Rentals**| `/api/v1/assets` | Asset listing CRUD, daily rate calculation, deposit verification |
 | 📋 **Gig Kanban** | `/api/v1/gigs` | Task creation, milestone escrow lock, proposal submission, status workflow |
 | 💳 **Escrow Wallet** | `/api/v1/wallet` | Escrow balance tracking, deposit holds, fund releases, multi-channel payouts |
-| 📡 **Realtime SSE** | `/api/v1/events/stream` | Server-Sent Events stream for live status updates & notifications |
+| 🔌 **Socket.IO API** | `ws://` | Real-time GPS Tracking, Geofencing Alerts, and Emergency SOS Hub |
 | 🩺 **Health Check** | `/api/v1/health` | Uptime check, database status & API ping |
 
 ---
@@ -44,8 +45,9 @@ The core RESTful API engine powering **NexusPulse AI** — an AI-Driven Freelanc
 |-------|-----------|
 | **Runtime & Framework** | Node.js (v18 / v20+), Express.js, TypeScript |
 | **Database & ODM** | MongoDB Atlas, Mongoose ORM |
+| **Real-time Engine** | Socket.IO |
 | **Cache & In-Memory** | Redis (`ioredis` with graceful offline fallback) |
-| **AI Integration** | Google Gemini API (`@google/generative-ai`) |
+| **AI Integration** | Google Gemini API (`@google/generative-ai`) (Vision & Text) |
 | **Security & Middleware** | JWT (`jsonwebtoken`), BcryptJS, CORS, Helmet, Morgan logger |
 
 ---
